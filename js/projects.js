@@ -4,102 +4,116 @@ document.addEventListener("DOMContentLoaded", () => {
   const projectItems = document.querySelectorAll(".project-item");
 
   const projectDetails = {
-    safran: `
-    <h3>Nacelle Actuation System</h3>
+   safran: `
+  <h3>Thrust Reverser Actuation System Test Bench</h3>
 
-    <div class="popup-image-gallery">
-      <img src="images/projects/safran_main.png" alt="Nacelle Actuation System" class="popup-image">
-    </div>
+  <div class="popup-image-gallery">
+    <img src="images/projects/safran_main.png" alt="Test Bench System" class="popup-image">
+  </div>
 
-    <p>
-      This project was developed during an internship at <strong>InterDigital</strong>.
-      Its goal was to explore the use of the <strong>MPEG Haptics standard</strong> in a robotic <strong>teleoperation</strong> context.
-      The demonstrator enables real-time remote control of a <strong>Universal Robots UR3e</strong> arm using a
-      <strong>Geomagic Touch haptic device</strong>, allowing the operator to both control the robot and feel forces from its environment.
-    </p>
+  <p>
+    This project was carried out during my internship at <strong>Safran</strong>.
+    The objective was to develop a <strong>portable test solution</strong> to diagnose equipment of a
+    <strong>thrust reverser actuation system</strong> across multiple aircraft programs.
+  </p>
 
-    <span class="popup-section-title">System Architecture</span>
-    <p>
-      The <strong>UR3e</strong> served as a reference platform to design and implement a <strong>standards-based haptic streaming pipeline</strong>.
-      Bidirectional <em>position</em> and <em>force</em> data are encoded using the MPEG Haptics codec (MIHS stream)
-      and transmitted over <strong>TCP</strong> and the <strong>RTDE interface</strong> of the robot.
-    </p>
+  <span class="popup-section-title">Project Objective</span>
+  <p>
+    The system enables testing and validation of different electronic equipment by simulating
+    operating conditions and measuring electrical responses. It was designed to be integrated into a
+    <strong>demonstration suitcase</strong> for easy transport and on-site diagnostics.
+  </p>
 
-    <div class="popup-image-gallery">
-      <img src="images/projects/hapticcom.png" alt="Network architecture" class="popup-image">
-      <p class="img-caption">fig.1) Overview of the teleoperation pipeline based on the MPEG Haptics standard.</p>
-    </div>
+  <div class="popup-image-gallery">
+    <img src="images/projects/Inverseur.png" alt="Thrust reverser system" class="popup-image">
+    <img src="images/projects/Flux.png" alt="Airflow during thrust reversal" class="popup-image">
+    <p class="img-caption">fig.1) Thrust reverser principle and airflow redirection.</p>
+  </div>
 
-    <p>
-      The system is composed of two machines (fig.1): the first (Unity/C#) captures the Geomagic Touch positions and orientations,
-      which are <strong>encoded in MPEG Haptics format</strong> through a C++ DLL. The second (C++/Python) decodes the stream,
-      sends Cartesian commands to the robot via RTDE, and sends force feedback back to the Touch device (fig.4).
-    </p>
+  <span class="popup-section-title">Hardware Development</span>
+  <p>
+    The first phase of the project focused on <strong>hardware design</strong>. I designed several
+    electronic boards using <strong>EasyEDA</strong>, including schematic design and PCB routing.
+    Component selection was performed according to system constraints and requirements.
+  </p>
 
-    <span class="popup-section-title">Force & Motion Mapping</span>
-    <div class="popup-image-gallery">
-      <img src="images/projects/hapticmapping.png" alt="Mapping " class="popup-image">
-      <p class="img-caption">fig.2) Scale and apply the rotation between the Geomagic Touch and the UR3e.</p>
-    </div>
+  <p>
+    I assembled and tested the boards through <strong>unit tests</strong> and <strong>integration tests</strong>.
+    Measurements and debugging were performed using laboratory tools such as
+    <strong>multimeters</strong> and <strong>oscilloscopes</strong>, including continuity checks and
+    component-level validation.
+  </p>
 
-    <p>
-      Mapping between the robot’s end-effector and the haptic device ensures intuitive control.
-      The UR3e’s workspace is scaled to match the Geomagic Touch’s limited range of motion (fig.2),
-      allowing precise manipulation within the robot’s reachable volume.
-    </p>
+  <span class="popup-section-title">Power Analysis & Integration</span>
+  <p>
+    A detailed <strong>power consumption analysis</strong> was carried out to determine system requirements.
+    I measured the consumption of each component and I/O (GPIO, peripherals, etc.) to calculate
+    <strong>voltage and current needs</strong>, as well as <strong>battery life autonomy</strong>.
+  </p>
 
-    <span class="popup-section-title">Communication Loop</span>
-    <div class="popup-image-gallery">
-      <img src="images/projects/hapticrtde.png" alt="Force mapping diagram" class="popup-image">
-      <p class="img-caption">fig.3) RTDE communication loop for sending commands and receiving force feedback.</p>
-    </div>
+  <p>
+    The complete system was then integrated into a <strong>portable demonstration case</strong>,
+    ensuring robustness, usability, and autonomy.
+  </p>
 
-    <p>
-      Force feedback from the UR3e is retrieved via RTDE (fig.3) and mapped to the Geomagic Touch.
-      This allows the operator to feel contact forces and constraints, enhancing situational awareness during teleoperation.
-      Position and rotation (as quaternions) are sent to the robot, while force feedback (Fx, Fy, Fz) is received in real time.
-    </p>
+  <span class="popup-section-title">Embedded Software Development</span>
+  <p>
+    The software part was developed on <strong>ESP32 microcontrollers</strong> using
+    <strong>C/C++ (Arduino IDE)</strong>.
+    I implemented sensor acquisition and communication protocols including
+    <strong>I2C, UART, SPI, and GPIO</strong>.
+  </p>
 
-    <span class="popup-section-title">Safety and Constraints</span>
-    <div class="popup-image-gallery">
-      <img src="images/projects/hapticsafety.png" alt="Safety zone" class="popup-image">
-      <p class="img-caption">fig.4) Adjustable safety zone implemented in Unity to limit the working volume.</p>
-    </div>
+  <p>
+    A <strong>master-slave architecture</strong> was implemented using SPI communication between two microcontrollers.
+    I also developed <strong>low-level drivers</strong> (GPIO, UART, SPI, I2C, ADC) and performed
+    <strong>hardware/software integration (board bring-up)</strong>.
+  </p>
 
-    <p>
-      To ensure operator safety, a <strong>virtual safety zone</strong> was implemented in Unity.
-      This prevents the user from exceeding the robot’s safe workspace and helps avoid collisions
-      by dynamically constraining movements through force feedback.
-    </p>
+  <div class="popup-image-gallery">
+    <img src="images/projects/RTOS.png" alt="RTOS architecture" class="popup-image">
+    <p class="img-caption">fig.2) Task management and scheduling using FreeRTOS.</p>
+  </div>
 
-    <span class="popup-section-title">Operation Modes</span>
-    <p>
-      Two operating modes were developed:
-    </p>
-    <ul>
-      <li><strong>Real-time streaming:</strong> live bidirectional control with force feedback and haptic interaction.</li>
-      <li><strong>Playback mode:</strong> replay of pre-recorded trajectories (.hjif / .hmpg) for reproducible demonstrations.</li>
-    </ul>
+  <p>
+    The system leveraged <strong>FreeRTOS</strong> to manage real-time tasks and ensure reliable execution.
+  </p>
 
-    <div class="popup-image-gallery">
-      <img src="images/projects/hapticschema.png" alt="Communication pipeline" class="popup-image">
-      <p class="img-caption">fig.5) End-to-end communication pipeline between Unity, C++, Python, and UR3e robot.</p>
-    </div>
+  <span class="popup-section-title">Human-Machine Interface</span>
+  <p>
+    A user interface was developed on a <strong>Nextion touchscreen</strong> using UART communication,
+    allowing intuitive interaction with the system.
+  </p>
 
-    <span class="popup-section-title">Technical Challenges</span>
-    <p>
-      The project combined <strong>Unity (C#)</strong> for visualization, <strong>C++</strong> for MPEG encoding/decoding,
-      and <strong>Python/RTDE</strong> for robot control. Quaternion-based pose representation ensured frame consistency.
-      Main challenges included <strong>latency management</strong>, <strong>frame synchronization</strong>,
-      and <strong>control stability</strong> in real-time haptic feedback.
-    </p>
+  <p>
+    In addition, I designed a <strong>custom 3D mechanical panel</strong> integrating connectors,
+    harness interfaces, and the touchscreen. The structure was manufactured using
+    <strong>laser cutting</strong>.
+  </p>
 
-    <span class="popup-section-title">Conclusion</span>
-    <p>
-      This demonstrator validated the <strong>feasibility of integrating MPEG Haptics into a robotic loop</strong>,
-      highlighting its potential for applications in <em>remote manipulation</em> and <em>surgical teleoperation</em>.
-    </p>
-  `,
+  <span class="popup-section-title">Technical Documentation</span>
+  <p>
+    I produced several technical deliverables, including a <strong>system architecture document</strong>,
+    a <strong>user manual</strong>, and a <strong>maintenance guide</strong>.
+  </p>
+
+  <span class="popup-section-title">Skills Developed</span>
+  <ul>
+    <li><strong>Hardware design:</strong> PCB design, routing, component selection</li>
+    <li><strong>Embedded software:</strong> C/C++, ESP32, Arduino IDE</li>
+    <li><strong>Communication protocols:</strong> I2C, UART, SPI, GPIO</li>
+    <li><strong>RTOS:</strong> FreeRTOS</li>
+    <li><strong>System integration:</strong> hardware/software bring-up</li>
+    <li><strong>HMI development:</strong> Nextion touchscreen</li>
+  </ul>
+
+  <span class="popup-section-title">Conclusion</span>
+  <p>
+    This project resulted in a <strong>fully functional and portable diagnostic system</strong>,
+    capable of testing multiple configurations of thrust reverser actuation systems.
+    It highlights strong skills in <strong>embedded systems, electronics, and system integration</strong>.
+  </p>
+`,
 
 
     autonomous: `
@@ -260,83 +274,106 @@ document.addEventListener("DOMContentLoaded", () => {
   `,
 
     egis: `
-    <h3>Reef Pulse – AI for Marine Sound Recognition</h3>
+  <h3>Smoke Extraction System Design – Grand Paris Express</h3>
 
-    <div class="popup-image-gallery">
-      <img src="images/projects/reefpulse.png" alt="Reef Pulse Project Overview" class="popup-image">
-    </div>
+  <p>
+    This project was carried out during my internship at <strong>Egis</strong>, as part of the
+    <strong>Grand Paris Express</strong>, the largest infrastructure project in Europe.
+    The work focused on the <strong>design and optimization of smoke extraction systems</strong>
+    for metro stations of Line 15 East North.
+  </p>
 
-    <h4 class="popup-section-title"> Objective</h4>
-    <p>
-      The goal of this project, conducted in partnership with <strong>ENIB (2023)</strong>, was to apply 
-      <strong>Artificial Intelligence</strong> and <strong>Machine Learning</strong> techniques to the 
-      <strong>detection and classification of marine species</strong> based on underwater acoustic signals.  
-      This project is part of a global initiative to develop <em>eco-responsible monitoring tools</em> for 
-      <strong>Marine Protected Areas (MPAs)</strong>.
-    </p>
+  <span class="popup-section-title">Project Context</span>
+  <p>
+    The <strong>Société du Grand Paris</strong> aims to improve urban connectivity and accessibility
+    through a fully automated metro network. Egis is involved in engineering, design, and construction
+    management of several lines, including Line 15, on which I contributed.
+  </p>
 
-    <h4 class="popup-section-title"> Context</h4>
-    <p>
-      Coral reefs host nearly <strong>30% of marine biodiversity</strong> and support over a billion people worldwide.  
-      However, due to human impact, up to <strong>90% of reefs may disappear by 2050</strong>.  
-      Current visual survey methods are <em>slow, costly, and limited in time and space</em>.  
-      The <strong>Reef Pulse</strong> initiative aims to overcome these limitations by using continuous underwater sound
-      recordings to assess the ecological state of coral reefs in real time.
-    </p>
+  <p>
+    The study covered four stations: <em>Stade de France</em>, <em>Mairie d’Aubervilliers</em>,
+    <em>Fort d’Aubervilliers</em>, and <em>Drancy-Bobigny</em>.
+  </p>
 
-    <p>
-      By automatically detecting key biological and anthropogenic sound events, Reef Pulse provides 
-      valuable indicators to guide <strong>marine conservation and management policies</strong>.
-    </p>
+  <span class="popup-section-title">Objectives</span>
+  <p>
+    The main objective was to design a <strong>reliable and efficient smoke extraction system</strong>,
+    ensuring passenger safety in case of fire while meeting strict regulatory requirements.
+  </p>
 
-    <h4 class="popup-section-title"> Methodology</h4>
-    <p>
-      The study focused on the analysis of <strong>bioacoustic data</strong> recorded on coral reef sites.  
-      Using <strong>Machine Learning</strong> models, we explored how different <strong>acoustic features</strong> 
-      (spectral, temporal, cepstral) affect the accuracy of species classification.
-    </p>
+  <span class="popup-section-title">Modeling & Simulations</span>
+  <p>
+    I developed detailed <strong>3D numerical models</strong> of the stations using
+    <strong>Pyrosim (FDS)</strong>. These models were used to simulate:
+  </p>
 
-    <div class="popup-image-gallery">
-      <img src="images/projects/whale_spectrogram.png" alt="Spectrogram of underwater sound" class="popup-image">
-      <p class="img-caption">fig.1) Example of spectrogram visualization used for species sound analysis.</p>
-    </div>
+  <ul>
+    <li><strong>Cold flow simulations</strong> to validate ventilation performance</li>
+    <li><strong>Fire scenarios</strong> on station platforms</li>
+  </ul>
 
-    <p>
-      Various feature extraction techniques were tested (e.g., <em>FFT, MFCC, Wavelets</em>), 
-      combined with supervised classifiers such as <em>Random Forests</em>, <em>SVM</em>, and <em>XGBoost</em>.  
-      The objective was to identify the best compromise between <strong>classification performance</strong> 
-      and <strong>computational efficiency</strong>.
-    </p>
+  <p>
+    A key requirement was to ensure <strong>airtight models</strong> with balanced airflow
+    (no leakage), guaranteeing reliable simulation results.
+  </p>
 
-    <h4 class="popup-section-title"> Energy-Aware AI</h4>
-    <p>
-      In addition to model accuracy, particular attention was paid to <strong>energy consumption</strong>.  
-      We analyzed the computational complexity of each algorithm to assess their environmental footprint 
-      and determine the most efficient trade-off between energy use and detection reliability. LightGBM was optimal for this.
-    </p>
+  <span class="popup-section-title">Aerodynamic Analysis</span>
+  <p>
+    The simulations allowed the analysis of <strong>airflow velocity fields</strong> and
+    verification of performance criteria such as <strong>counter-flow velocities</strong>,
+    ensuring effective smoke extraction and safe evacuation conditions.
+  </p>
 
-    <div class="popup-image-gallery">
-      <img src="images/projects/reefpulseconso.png" alt="Energy efficiency comparison between ML models" class="popup-image">
-      <p class="img-caption">fig.2) Energy–accuracy trade-off across different ML algorithms tested.</p>
-    </div>
+  <span class="popup-section-title">Methodology</span>
+  <p>
+    The work followed a structured approach:
+  </p>
+  <ul>
+    <li>Learning and mastering Pyrosim tools</li>
+    <li>Accurate 3D modeling of stations</li>
+    <li>Simulation setup and execution</li>
+    <li>Validation, testing, and model optimization</li>
+  </ul>
 
-    <h4 class="popup-section-title"> Research Axes</h4>
-    <ul>
-      <li><strong>Axe 1 – Literature Review:</strong> State of the art in bioacoustics and AI applications for coral reef monitoring.</li>
-      <li><strong>Axe 2 – Traditional ML Methods:</strong> Design of sound classification pipelines using conventional ML techniques.</li>
-      <li><strong>Axe 3 – Comparative Study:</strong> Evaluation of performance and sustainability metrics across models.</li>
-    </ul>
+  <span class="popup-section-title">Technical Deliverables</span>
+  <p>
+    The final phase consisted in producing <strong>technical reports</strong> summarizing
+    simulation results, analyses, and design recommendations.
+  </p>
 
-    <h4 class="popup-section-title"> Key Takeaways</h4>
-    <p>
-      This project demonstrates the potential of <strong>AI-driven acoustic monitoring</strong> to support 
-      sustainable management of marine ecosystems.  
-      By optimizing models for both <strong>accuracy</strong> and <strong>energy efficiency</strong>, 
-      we contribute to the development of responsible and scalable technologies for marine conservation.
-    </p>
+  <span class="popup-section-title">Results</span>
 
-    <p><em>Note: Due to confidentiality, specific datasets, algorithms, and quantitative results are not disclosed.</em></p>
-  `,
+  <span class="popup-section-title">Numerical Model</span>
+  <div class="popup-image-gallery">
+    <img src="images/projects/3D.png" alt="3D station model" class="popup-image">
+    <img src="images/projects/3D2.png" alt="3D station model view 2" class="popup-image">
+    <img src="images/projects/Extraction.png" alt="Smoke extraction simulation" class="popup-image">
+  </div>
+
+  <span class="popup-section-title">Aerodynamic Study – Velocity Fields</span>
+  <div class="popup-image-gallery">
+    <img src="images/projects/Vitesse.png" alt="Velocity field" class="popup-image">
+    <img src="images/projects/Vitesse2.png" alt="Velocity field view 2" class="popup-image">
+  </div>
+
+  <p class="img-caption">fig.1) Numerical modeling and CFD results: station geometry, smoke extraction behavior, and airflow velocity distribution.</p>
+
+  <span class="popup-section-title">Skills Developed</span>
+  <ul>
+    <li><strong>CFD simulation:</strong> FDS, Pyrosim</li>
+    <li><strong>3D modeling</strong></li>
+    <li><strong>Aerodynamics & ventilation systems</strong></li>
+    <li><strong>Fire safety engineering</strong></li>
+    <li><strong>Data analysis & validation</strong></li>
+  </ul>
+
+  <span class="popup-section-title">Conclusion</span>
+  <p>
+    This project contributed to the <strong>design and validation of critical safety systems</strong>
+    for major metro infrastructures, strengthening my skills in
+    <strong>simulation, modeling, and safety engineering</strong>.
+  </p>
+`,
     pickplace: `
     <h3>Pick-and-Place System – ABB Robot</h3>
 
