@@ -1,4 +1,4 @@
-/* --- RESET DE BASE --- */
+::-moz-list-bullet/* --- RESET DE BASE --- */
 * {
     margin: 0;
     padding: 0;
@@ -89,7 +89,7 @@ nav a:hover {
 .about-section {
   position: relative;
   height: 80vh;
-  background: url("images/about/liban.png") center center/cover no-repeat;
+  background: url("images/about/beir.png") center center/cover no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: center;
