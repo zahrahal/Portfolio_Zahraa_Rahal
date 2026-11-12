@@ -374,6 +374,88 @@ document.addEventListener("DOMContentLoaded", () => {
     <strong>simulation, modeling, and safety engineering</strong>.
   </p>
 `,
+
+  shotsense: `
+    <h3>ShotSense – Smart Shooting Performance System</h3>
+
+    <h4 class="popup-section-title">Project Overview</h4>
+    <p>
+      ShotSense is an embedded system designed to analyse key aspects of a sport shooter’s
+      performance. It focuses on trigger pressure and arm stability, providing measurable
+      feedback to support training and help shooters better understand their technique.
+    </p>
+
+    <h4 class="popup-section-title">System Architecture</h4>
+    <p>
+      The prototype combines an <strong>ESP32-C3</strong> microcontroller with a force sensor
+      and an inertial measurement unit. Sensor data is acquired by the embedded system,
+      transmitted wirelessly to a computer, and displayed through a graphical user interface.
+    </p>
+    <ul>
+      <li><strong>Force measurement:</strong> DF9-40 FSR sensor (0–2 kg) to measure trigger pressure</li>
+      <li><strong>Motion measurement:</strong> MPU-6050 accelerometer and gyroscope to monitor stability</li>
+      <li><strong>Wireless communication:</strong> Bluetooth Low Energy (BLE)</li>
+      <li><strong>Data acquisition:</strong> sensor sampling at approximately 100 Hz</li>
+    </ul>
+
+    <h4 class="popup-section-title">Embedded Hardware & Sensor Acquisition</h4>
+    <p>
+      The force sensor is integrated into a voltage-divider circuit using a 10 kΩ resistor.
+      Its analogue signal is read by the ESP32-C3 ADC. The MPU-6050 communicates with the
+      microcontroller through the I²C bus to provide acceleration and angular-velocity data.
+    </p>
+
+    <h4 class="popup-section-title">Embedded Software Development</h4>
+    <p>
+      The firmware is developed in <strong>C++</strong>. It handles sensor acquisition,
+      measurement processing and BLE communication. A complementary filter combines the
+      gyroscope and accelerometer measurements to estimate orientation and assess stability.
+    </p>
+
+    <h4 class="popup-section-title">Wireless Communication & Data Processing</h4>
+    <p>
+      Measurements are transmitted from the ESP32-C3 to a computer over Bluetooth Low Energy.
+      A Python component receives and processes the data before it is used by the interface
+      for monitoring and analysis.
+    </p>
+
+    <h4 class="popup-section-title">Qt Graphical User Interface</h4>
+    <p>
+      The Qt interface presents the measurements in real time, allowing the user to monitor
+      trigger pressure and stability during a shooting session. The video below demonstrates
+      the current graphical interface.
+    </p>
+    <div class="popup-image-gallery">
+      <video class="popup-video" controls playsinline preload="metadata">
+        <source src="videos/qt.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <p class="img-caption">ShotSense – Qt graphical user interface demonstration.</p>
+    </div>
+
+    <h4 class="popup-section-title">Real-Time Feedback</h4>
+    <p>
+      The system is designed to provide progressive sound feedback based on the measured
+      pressure. A haptic feedback solution is considered as a future development.
+    </p>
+
+    <h4 class="popup-section-title">Prototype Development & Testing</h4>
+    <p>
+      The prototype combines the electronic assembly, embedded firmware, wireless data link
+      and graphical interface. Initial tests have been carried out using shooting-club
+      equipment, and the prototype is still being refined.
+    </p>
+
+    <h4 class="popup-section-title">Technologies & Skills</h4>
+    <ul>
+      <li><strong>Embedded systems:</strong> ESP32-C3, C++, ADC, I²C, BLE</li>
+      <li><strong>Sensors:</strong> FSR force sensor, MPU-6050 IMU</li>
+      <li><strong>Signal processing:</strong> complementary filtering, sensor data analysis</li>
+      <li><strong>Data processing:</strong> Python</li>
+      <li><strong>Graphical interface:</strong> Qt</li>
+      <li><strong>Prototyping:</strong> electronic integration and 3D-printed mechanical parts</li>
+    </ul>
+  `,
     pickplace: `
     <h3>Pick-and-Place System – ABB Robot</h3>
 
