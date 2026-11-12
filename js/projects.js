@@ -373,7 +373,7 @@ document.addEventListener("DOMContentLoaded", () => {
     for major metro infrastructures, strengthening my skills in
     <strong>simulation, modeling, and safety engineering</strong>.
   </p>
-`,
+  `,
 
   shotsense: `
     <h3>ShotSense – Smart Shooting Performance System</h3>
